@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>יצירת חשבון חדש</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#2b6cee",
+            "background-light": "#f6f6f8",
+            "background-dark": "#101622",
+            "field-light": "#ffffff",
+            "field-dark": "#1c1f27",
+            "text-light": "#18181b",
+            "text-dark": "#ffffff",
+            "subtle-text-light": "#71717a",
+            "subtle-text-dark": "#9da6b9",
+            "border-light": "#e4e4e7",
+            "border-dark": "#3b4354",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col items-center bg-background-light dark:bg-background-dark font-display" dir="rtl">
+<div class="flex w-full max-w-md flex-col items-center justify-center p-4 pt-16">
+<div class="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/20">
+<svg class="text-primary" fill="none" height="40" viewBox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M2 17L12 22L22 17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M2 12L12 17L22 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h1 class="text-text-light dark:text-text-dark tracking-tight text-[32px] font-bold leading-tight text-center pb-8">יצירת חשבון חדש</h1>
+<div class="flex w-full flex-col gap-4">
+<div class="flex w-full flex-wrap items-end gap-4">
+<label class="flex w-full flex-col min-w-40 flex-1">
+<p class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">שם משתמש או אימייל</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border border-border-light dark:border-border-dark bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] text-base font-normal leading-normal" placeholder="הקלד/י שם משתמש או אימייל" value=""/>
+</label>
+</div>
+<div class="flex w-full flex-wrap items-end gap-4">
+<label class="flex w-full flex-col min-w-40 flex-1">
+<p class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">מספר טלפון</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border border-border-light dark:border-border-dark bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] text-base font-normal leading-normal" placeholder="הקלד/י מספר טלפון" type="tel" value=""/>
+</label>
+</div>
+<div class="flex w-full flex-wrap items-end gap-4">
+<label class="flex w-full flex-col min-w-40 flex-1">
+<p class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">סיסמה</p>
+<div class="relative flex w-full flex-1 items-stretch">
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border border-border-light dark:border-border-dark bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] pr-12 text-base font-normal leading-normal" placeholder="הקלד/י סיסמה" type="password" value=""/>
+<div class="absolute inset-y-0 right-0 flex cursor-pointer items-center justify-center pr-4 text-subtle-text-light dark:text-subtle-text-dark">
+<span class="material-symbols-outlined">visibility</span>
+</div>
+</div>
+</label>
+</div>
+<div class="flex w-full flex-wrap items-end gap-4">
+<label class="flex w-full flex-col min-w-40 flex-1">
+<p class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">אישור סיסמה</p>
+<div class="relative flex w-full flex-1 items-stretch">
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border border-border-light dark:border-border-dark bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] pr-12 text-base font-normal leading-normal" placeholder="הקלד/י את הסיסמה שוב" type="password" value=""/>
+<div class="absolute inset-y-0 right-0 flex cursor-pointer items-center justify-center pr-4 text-subtle-text-light dark:text-subtle-text-dark">
+<span class="material-symbols-outlined">visibility_off</span>
+</div>
+</div>
+</label>
+</div>
+<div class="flex w-full items-center gap-3 pt-2">
+<input class="form-checkbox h-5 w-5 rounded border-border-light dark:border-border-dark bg-field-light dark:bg-field-dark text-primary focus:ring-primary focus:ring-offset-background-light dark:focus:ring-offset-background-dark" id="terms-checkbox" type="checkbox"/>
+<label class="text-sm text-subtle-text-light dark:text-subtle-text-dark" for="terms-checkbox">
+          אני מסכים ל<a class="font-semibold text-primary hover:underline" href="#">תנאי השימוש</a> ול<a class="font-semibold text-primary hover:underline" href="#">מדיניות הפרטיות</a>.
+        </label>
+</div>
+</div>
+<div class="mt-8 flex w-full">
+<button class="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 flex-1 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-colors">
+<span class="truncate">הרשמה</span>
+</button>
+</div>
+<div class="mt-8 text-center">
+<p class="text-sm text-subtle-text-light dark:text-subtle-text-dark">
+          כבר יש לך חשבון?
+          <a class="font-semibold text-primary hover:underline" href="#">התחבר/י</a>
+</p>
+</div>
+</div>
+</div>
+</body></html>

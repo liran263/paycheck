@@ -1,107 +1,143 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Register: React.FC = () => {
+export default function Register() {
+    const [username, setUsername] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [agreedToTerms, setAgreedToTerms] = useState(false);
+    const [passwordError, setPasswordError] = useState('');
+
+    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setConfirmPassword(value);
+
+        // Validate password match in real-time
+        if (value && password && value !== password) {
+            setPasswordError('הסיסמאות אינן תואמות');
+        } else {
+            setPasswordError('');
+        }
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Validate passwords match before submission
+        if (password !== confirmPassword) {
+            setPasswordError('הסיסמאות אינן תואמות');
+            return;
+        }
+
+        console.log({
+            username,
+            phone,
+            password,
+            confirmPassword,
+            agreedToTerms,
+        });
+    };
+
     return (
-        <div className="relative flex h-auto min-h-screen w-full flex-col items-center justify-center bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden p-4 font-display">
-            <div className="w-full max-w-md bg-white dark:bg-background-dark rounded-xl shadow-lg p-8 space-y-6">
-                <h1 className="text-[#111418] dark:text-white tracking-light text-[32px] font-bold leading-tight text-center">
-                    PayShift Registration
-                </h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <label className="flex flex-col min-w-40 flex-1">
-                        <p className="text-[#111418] dark:text-gray-300 text-base font-medium leading-normal pb-2">
-                            First Name
-                        </p>
-                        <input
-                            className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-[#617589] p-[15px] text-base font-normal leading-normal"
-                            placeholder="Enter your first name"
-                            defaultValue=""
-                        />
-                    </label>
-                    <label className="flex flex-col min-w-40 flex-1">
-                        <p className="text-[#111418] dark:text-gray-300 text-base font-medium leading-normal pb-2">
-                            Last Name
-                        </p>
-                        <input
-                            className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-[#617589] p-[15px] text-base font-normal leading-normal"
-                            placeholder="Enter your last name"
-                            defaultValue=""
-                        />
-                    </label>
+        <div className="relative flex h-auto min-h-screen w-full flex-col items-center bg-background-light dark:bg-background-dark font-display" dir="rtl">
+            <div className="flex w-full max-w-md flex-col items-center justify-center p-4 pt-16">
+                <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/20">
+                    <svg className="text-primary" fill="none" height="40" viewBox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                    </svg>
                 </div>
-                <label className="flex flex-col min-w-40 flex-1">
-                    <p className="text-[#111418] dark:text-gray-300 text-base font-medium leading-normal pb-2">
-                        Username
-                    </p>
-                    <input
-                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-[#617589] p-[15px] text-base font-normal leading-normal"
-                        placeholder="Enter your username"
-                        defaultValue=""
-                    />
-                </label>
-                <label className="flex flex-col min-w-40 flex-1">
-                    <p className="text-[#111418] dark:text-gray-300 text-base font-medium leading-normal pb-2">
-                        Email
-                    </p>
-                    <input
-                        className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-[#617589] p-[15px] text-base font-normal leading-normal"
-                        placeholder="Enter your email"
-                        defaultValue=""
-                    />
-                </label>
-                <label className="flex flex-col min-w-40 flex-1">
-                    <p className="text-[#111418] dark:text-gray-300 text-base font-medium leading-normal pb-2">
-                        Password
-                    </p>
-                    <div className="flex w-full flex-1 items-stretch rounded-lg">
+                <h1 className="text-text-light dark:text-text-dark tracking-tight text-[32px] font-bold leading-tight text-center pb-8">יצירת חשבון חדש</h1>
+                <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
+                    <div className="flex w-full flex-wrap items-end gap-4">
+                        <label className="flex w-full flex-col min-w-40 flex-1">
+                            <p className="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">שם משתמש או אימייל</p>
+                            <input
+                                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border border-border-light dark:border-border-dark bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] text-base font-normal leading-normal"
+                                placeholder="הקלד/י שם משתמש או אימייל"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </label>
+                    </div>
+                    <div className="flex w-full flex-wrap items-end gap-4">
+                        <label className="flex w-full flex-col min-w-40 flex-1">
+                            <p className="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">מספר טלפון</p>
+                            <input
+                                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border border-border-light dark:border-border-dark bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] text-base font-normal leading-normal"
+                                placeholder="הקלד/י מספר טלפון"
+                                type="tel"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                            />
+                        </label>
+                    </div>
+                    <div className="flex w-full flex-wrap items-end gap-4">
+                        <label className="flex w-full flex-col min-w-40 flex-1">
+                            <p className="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">סיסמה</p>
+                            <div className="relative flex w-full flex-1 items-stretch">
+                                <input
+                                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border border-border-light dark:border-border-dark bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] pr-12 text-base font-normal leading-normal"
+                                    placeholder="הקלד/י סיסמה"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                <div className="absolute inset-y-0 right-0 flex cursor-pointer items-center justify-center pr-4 text-subtle-text-light dark:text-subtle-text-dark">
+                                    <span className="material-symbols-outlined">visibility</span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div className="flex w-full flex-wrap items-end gap-4">
+                        <label className="flex w-full flex-col min-w-40 flex-1">
+                            <p className="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">אישור סיסמה</p>
+                            <div className="relative flex w-full flex-1 items-stretch">
+                                <input
+                                    className={`form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] pr-12 text-base font-normal leading-normal ${passwordError
+                                        ? 'border-red-500 focus:ring-red-500'
+                                        : 'border-border-light dark:border-border-dark focus:ring-primary'
+                                        }`}
+                                    placeholder="הקלד/י את הסיסמה שוב"
+                                    type="password"
+                                    value={confirmPassword}
+                                    onChange={handleConfirmPasswordChange}
+                                />
+                                <div className="absolute inset-y-0 right-0 flex cursor-pointer items-center justify-center pr-4 text-subtle-text-light dark:text-subtle-text-dark">
+                                    <span className="material-symbols-outlined">visibility_off</span>
+                                </div>
+                            </div>
+                            {passwordError && (
+                                <p className="text-sm text-red-500 mt-1">{passwordError}</p>
+                            )}
+                        </label>
+                    </div>
+                    <div className="flex w-full items-center gap-3 pt-2">
                         <input
-                            className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-[#617589] p-[15px] rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal"
-                            placeholder="Enter your password"
-                            type="password"
-                            defaultValue=""
+                            className="form-checkbox h-5 w-5 rounded border-border-light dark:border-border-dark bg-field-light dark:bg-field-dark text-primary focus:ring-primary focus:ring-offset-background-light dark:focus:ring-offset-background-dark"
+                            id="terms-checkbox"
+                            type="checkbox"
+                            checked={agreedToTerms}
+                            onChange={(e) => setAgreedToTerms(e.target.checked)}
                         />
-                        <div className="text-[#617589] flex border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-gray-800 items-center justify-center pr-[15px] rounded-r-lg border-l-0">
-                            <span className="material-symbols-outlined">visibility_off</span>
-                        </div>
+                        <label className="text-sm text-subtle-text-light dark:text-subtle-text-dark" htmlFor="terms-checkbox">
+                            אני מסכים ל<a className="font-semibold text-primary hover:underline" href="#">תנאי השימוש</a> ול<a className="font-semibold text-primary hover:underline" href="#">מדיניות הפרטיות</a>.
+                        </label>
                     </div>
-                    <div className="flex items-center space-x-2 mt-2">
-                        <div className="h-1 flex-1 bg-gray-300 dark:bg-gray-600 rounded-full">
-                            <div className="h-1 bg-red-500 w-1/4 rounded-full"></div>
-                        </div>
-                        <div className="h-1 flex-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
-                        <div className="h-1 flex-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
-                        <div className="h-1 flex-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">Weak</p>
+                    <div className="mt-8 flex w-full">
+                        <button type="submit" className="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 flex-1 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-colors">
+                            <span className="truncate">הרשמה</span>
+                        </button>
                     </div>
-                </label>
-                <label className="flex flex-col min-w-40 flex-1">
-                    <p className="text-[#111418] dark:text-gray-300 text-base font-medium leading-normal pb-2">
-                        Confirm Password
+                </form>
+                <div className="mt-8 text-center">
+                    <p className="text-sm text-subtle-text-light dark:text-subtle-text-dark">
+                        כבר יש לך חשבון?
+                        <a className="font-semibold text-primary hover:underline" href="#">התחבר/י</a>
                     </p>
-                    <div className="flex w-full flex-1 items-stretch rounded-lg">
-                        <input
-                            className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary h-14 placeholder:text-[#617589] p-[15px] rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal"
-                            placeholder="Confirm your password"
-                            type="password"
-                            defaultValue=""
-                        />
-                        <div className="text-[#617589] flex border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-gray-800 items-center justify-center pr-[15px] rounded-r-lg border-l-0">
-                            <span className="material-symbols-outlined">visibility_off</span>
-                        </div>
-                    </div>
-                </label>
-                <button className="w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors duration-300 h-14">
-                    Register
-                </button>
-                <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-                    Already have an account?{' '}
-                    <a className="font-medium text-primary hover:underline" href="#">
-                        Log in
-                    </a>
-                </p>
+                </div>
             </div>
         </div>
     );
-};
-
-export default Register;
+}
