@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PayShift</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#007AFF",
+              "background-light": "#F0F8FF",
+              "background-dark": "#0f1323",
+              "text-light": "#1C1C1E",
+              "text-dark": "#FFFFFF",
+              "tile-light": "#FFFFFF",
+              "tile-dark": "#1a1f36",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.5rem",
+              "lg": "0.75rem",
+              "xl": "1rem",
+              "2xl": "1.5rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<header class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="flex items-center gap-2">
+<div class="relative">
+<button class="flex items-center gap-1 text-primary">
+<span class="text-xl font-bold leading-normal tracking-[0.015em]">My Main Job</span>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+</div>
+<button aria-label="Menu" class="text-text-light dark:text-text-dark flex size-12 shrink-0 items-center justify-center">
+<span class="material-symbols-outlined text-3xl">account_circle</span>
+</button>
+</header>
+<main class="flex-grow p-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-primary text-white p-4 rounded-2xl aspect-square flex flex-col justify-between">
+<div>
+<div class="bg-white/20 rounded-full size-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">add</span>
+</div>
+</div>
+<p class="text-lg font-bold">Add Shift</p>
+</div>
+<div class="bg-tile-light dark:bg-tile-dark text-text-light dark:text-text-dark p-4 rounded-2xl aspect-square flex flex-col justify-between">
+<div>
+<div class="bg-primary/10 dark:bg-primary/20 rounded-full size-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">payments</span>
+</div>
+</div>
+<div>
+<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal">Hourly Wage</p>
+<p class="text-lg font-bold">₪55.00</p>
+</div>
+</div>
+<div class="bg-tile-light dark:bg-tile-dark text-text-light dark:text-text-dark p-4 rounded-2xl aspect-square flex flex-col justify-between">
+<div>
+<div class="bg-primary/10 dark:bg-primary/20 rounded-full size-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">schedule</span>
+</div>
+</div>
+<div>
+<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal">Overtime</p>
+<p class="text-lg font-bold">From 8 hrs</p>
+</div>
+</div>
+<div class="bg-tile-light dark:bg-tile-dark text-text-light dark:text-text-dark p-4 rounded-2xl aspect-square flex flex-col justify-between">
+<div>
+<div class="bg-primary/10 dark:bg-primary/20 rounded-full size-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">star</span>
+</div>
+</div>
+<div>
+<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal">Bonuses</p>
+<p class="text-lg font-bold">View Rules</p>
+</div>
+</div>
+<div class="bg-tile-light dark:bg-tile-dark text-text-light dark:text-text-dark p-4 rounded-2xl aspect-square flex flex-col justify-between col-span-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary/10 dark:bg-primary/20 rounded-full size-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">calendar_today</span>
+</div>
+<div>
+<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal">This Month</p>
+<p class="text-lg font-bold">₪ 4,580.00</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-zinc-400 dark:text-zinc-500">chevron_right</span>
+</div>
+<div class="flex justify-around text-center mt-4">
+<div>
+<p class="font-bold text-lg">15</p>
+<p class="text-sm text-zinc-500 dark:text-zinc-400">Shifts</p>
+</div>
+<div>
+<p class="font-bold text-lg">120h</p>
+<p class="text-sm text-zinc-500 dark:text-zinc-400">Hours</p>
+</div>
+<div>
+<p class="font-bold text-lg">₪120</p>
+<p class="text-sm text-zinc-500 dark:text-zinc-400">Bonuses</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<nav class="sticky bottom-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-sm p-2">
+<div class="flex justify-around items-center">
+<button class="flex flex-col items-center gap-1 text-primary p-2">
+<span class="material-symbols-outlined text-3xl">home</span>
+<span class="text-xs font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-zinc-500 dark:text-zinc-400 p-2">
+<span class="material-symbols-outlined text-3xl">list_alt</span>
+<span class="text-xs font-medium">Shifts</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-zinc-500 dark:text-zinc-400 p-2">
+<span class="material-symbols-outlined text-3xl">pie_chart</span>
+<span class="text-xs font-medium">Reports</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-zinc-500 dark:text-zinc-400 p-2">
+<span class="material-symbols-outlined text-3xl">settings</span>
+<span class="text-xs font-medium">Settings</span>
+</button>
+</div>
+</nav>
+</div>
+
+</body></html>
