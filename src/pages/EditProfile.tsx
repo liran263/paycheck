@@ -4,7 +4,7 @@ import { Header } from '../components/ui/Header';
 import { Icon } from '../components/ui/Icon';
 import { useAppSettings } from '../context/AppContext';
 import { useData } from '../context/DataContext';
-import { updateEmail, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
+import { updateEmail, verifyBeforeUpdateEmail, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { auth } from '../firebase';
 
 export const EditProfile: FC = () => {
@@ -94,15 +94,33 @@ export const EditProfile: FC = () => {
       await reauthenticateWithCredential(currentUser, credential);
 
       // 2. Update email in Firebase Auth
-      await updateEmail(currentUser, newEmail.trim());
+      let verificationSent = false;
+      try {
+        await verifyBeforeUpdateEmail(currentUser, newEmail.trim());
+        verificationSent = true;
+      } catch (authErr: any) {
+        console.warn('verifyBeforeUpdateEmail failed, trying updateEmail fallback...', authErr);
+        if (authErr.code === 'auth/operation-not-allowed' || authErr.code === 'auth/unsupported-tenant-operation') {
+          // Fallback to direct update if verifyBeforeUpdateEmail is not supported/allowed
+          await updateEmail(currentUser, newEmail.trim());
+        } else {
+          throw authErr;
+        }
+      }
 
       // 3. Update email in Firestore
       await updateUserProfile({
         email: newEmail.trim(),
       });
 
-      setEmailUpdateSuccess(language === 'he' ? 'כתובת האימייל עודכנה בהצלחה!' : 'Email updated successfully!');
-      setEmail(newEmail.trim());
+      if (verificationSent) {
+        setEmailUpdateSuccess(language === 'he' 
+          ? 'קישור אימות נשלח לכתובת האימייל החדשה! אנא אשר אותו בתיבת המייל כדי להשלים את העדכון.' 
+          : 'Verification link sent to the new email! Please confirm it to complete the update.');
+      } else {
+        setEmailUpdateSuccess(language === 'he' ? 'כתובת האימייל עודכנה בהצלחה!' : 'Email updated successfully!');
+        setEmail(newEmail.trim());
+      }
       setNewEmail('');
       setCurrentPassword('');
     } catch (err: any) {
