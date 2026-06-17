@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 import { Icon } from './Icon';
 
 interface ModalProps {
@@ -18,11 +18,11 @@ export const Modal: FC<ModalProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 bg-black/40 dark:bg-black/60 z-50 flex items-end justify-center"
+      className="fixed inset-0 bg-black/40 dark:bg-black/60 z-[100] flex items-center justify-center p-4"
       onClick={onClose}
     >
       <div 
-        className="bg-white dark:bg-card-dark w-full max-w-md rounded-t-2xl p-4 transition-transform transform translate-y-0"
+        className="bg-white w-full max-w-md rounded-2xl p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-4">

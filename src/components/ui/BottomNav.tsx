@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { type FC } from 'react';
 import { Icon } from './Icon';
 
 export interface NavItem {
@@ -15,7 +15,7 @@ interface BottomNavProps {
 
 export const BottomNav: FC<BottomNavProps> = ({ items }) => {
   return (
-    <nav className="sticky bottom-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-sm p-2 z-10">
+    <nav className="sticky bottom-0 bg-white border-t border-[rgba(216,217,229,0.2)] backdrop-blur-sm p-2 z-10">
       <div className="flex justify-around items-center">
         {items.map((item) => (
           <button

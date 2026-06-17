@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from './firebase';
@@ -24,7 +24,7 @@ export default function Register() {
 
     const navigate = useNavigate();
 
-    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setConfirmPassword(value);
 
@@ -87,7 +87,7 @@ export default function Register() {
         return isValid;
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setGeneralError('');
 
@@ -127,12 +127,13 @@ export default function Register() {
                 console.log("User registered:", user.uid);
                 navigate('/'); // Redirect to home/dashboard
 
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error("Registration Error:", err);
-                if (err.code === 'auth/email-already-in-use') {
+                const firebaseError = err as { code?: string; message?: string };
+                if (firebaseError.code === 'auth/email-already-in-use') {
                     setGeneralError('כתובת האימייל (או שם המשתמש) כבר קיימת במערכת');
                 } else {
-                    setGeneralError('אירעה שגיאה בהרשמה: ' + err.message);
+                    setGeneralError('אירעה שגיאה בהרשמה: ' + (firebaseError.message || 'שגיאה לא ידועה'));
                 }
             }
         }
@@ -144,29 +145,29 @@ export default function Register() {
     const hasTwoNumbers = /(?:.*\d){2}/.test(password);
 
     return (
-        <div className="relative flex h-auto min-h-screen w-full flex-col items-center bg-background-light dark:bg-background-dark font-display" dir="rtl">
-            <div className="flex w-full max-w-md flex-col items-center justify-center p-4 pt-16">
-                <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/20">
-                    <svg className="text-primary" fill="none" height="40" viewBox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg">
+        <div className="relative flex h-auto min-h-screen w-full flex-col items-center justify-center bg-background-light dark:bg-background-dark font-display p-4 md:p-6" dir="rtl">
+            <div className="flex w-full max-w-md flex-col items-center bg-white dark:bg-card-dark rounded-3xl p-8 md:p-10 shadow-soft border border-border-light dark:border-border-dark transition-all duration-300">
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 dark:bg-primary/20">
+                    <svg className="text-primary" fill="none" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
                         <path d="M2 17L12 22L22 17" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
                         <path d="M2 12L12 17L22 12" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
                     </svg>
                 </div>
-                <h1 className="text-text-light dark:text-text-dark tracking-tight text-[32px] font-bold leading-tight text-center pb-8">יצירת חשבון חדש</h1>
+                <h1 className="text-text-light dark:text-text-dark tracking-tight text-[28px] font-bold leading-tight text-center pb-6">יצירת חשבון חדש</h1>
                 <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
                     {/* General Error Display */}
                     {generalError && (
-                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                            <span className="block sm:inline">{generalError}</span>
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl relative" role="alert">
+                            <span className="block sm:inline text-sm">{generalError}</span>
                         </div>
                     )}
 
                     <div className="flex w-full flex-wrap items-end gap-4">
                         <label className="flex w-full flex-col min-w-40 flex-1">
-                            <p className="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">שם משתמש או אימייל</p>
+                            <p className="text-text-light dark:text-text-dark text-sm font-semibold leading-normal pb-2">שם משתמש או אימייל</p>
                             <input
-                                className={`form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] text-base font-normal leading-normal ${usernameError ? 'border-red-500 focus:ring-red-500' : 'border-border-light dark:border-border-dark focus:ring-primary'}`}
+                                className={`form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-text-light dark:text-text-dark focus:outline-0 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-primary/20 border bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] text-base font-normal leading-normal transition-all duration-200 shadow-xs ${usernameError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-zinc-200 dark:border-border-dark focus:border-primary'}`}
                                 placeholder="הקלד/י שם משתמש או אימייל"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
@@ -176,9 +177,9 @@ export default function Register() {
                     </div>
                     <div className="flex w-full flex-wrap items-end gap-4">
                         <label className="flex w-full flex-col min-w-40 flex-1">
-                            <p className="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">מספר טלפון</p>
+                            <p className="text-text-light dark:text-text-dark text-sm font-semibold leading-normal pb-2">מספר טלפון</p>
                             <input
-                                className={`form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] text-base font-normal leading-normal ${phoneError ? 'border-red-500 focus:ring-red-500' : 'border-border-light dark:border-border-dark focus:ring-primary'}`}
+                                className={`form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-text-light dark:text-text-dark focus:outline-0 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-primary/20 border bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] text-base font-normal leading-normal transition-all duration-200 shadow-xs ${phoneError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-zinc-200 dark:border-border-dark focus:border-primary'}`}
                                 placeholder="הקלד/י מספר טלפון"
                                 type="tel"
                                 value={phone}
@@ -189,17 +190,17 @@ export default function Register() {
                     </div>
                     <div className="flex w-full flex-wrap items-end gap-4">
                         <label className="flex w-full flex-col min-w-40 flex-1">
-                            <p className="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">סיסמה</p>
+                            <p className="text-text-light dark:text-text-dark text-sm font-semibold leading-normal pb-2">סיסמה</p>
                             <div className="relative flex w-full flex-1 items-stretch">
                                 <input
-                                    className={`form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] pr-12 text-base font-normal leading-normal ${passwordError ? 'border-red-500 focus:ring-red-500' : 'border-border-light dark:border-border-dark focus:ring-primary'}`}
+                                    className={`form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-text-light dark:text-text-dark focus:outline-0 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-primary/20 border bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] pr-12 text-base font-normal leading-normal transition-all duration-200 shadow-xs ${passwordError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-zinc-200 dark:border-border-dark focus:border-primary'}`}
                                     placeholder="הקלד/י סיסמה"
                                     type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                />
+                                  />
                                 <div
-                                    className="absolute inset-y-0 right-0 flex cursor-pointer items-center justify-center pr-4 text-subtle-text-light dark:text-subtle-text-dark"
+                                    className="absolute inset-y-0 right-0 flex cursor-pointer items-center justify-center pr-4 text-subtle-text-light dark:text-subtle-text-dark hover:text-primary transition-colors"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     <span className="material-symbols-outlined">{showPassword ? 'visibility_off' : 'visibility'}</span>
@@ -207,19 +208,19 @@ export default function Register() {
                             </div>
 
                             {/* Password Requirements UI */}
-                            <div className="mt-2 p-3 bg-field-light dark:bg-field-dark rounded-lg border border-border-light dark:border-border-dark">
-                                <p className="text-sm font-medium mb-2 text-text-light dark:text-text-dark">דרישות סיסמה:</p>
+                            <div className="mt-2 p-3 bg-field-light dark:bg-field-dark rounded-xl border border-border-light dark:border-border-dark">
+                                <p className="text-xs font-semibold mb-2 text-text-light dark:text-text-dark">דרישות סיסמה:</p>
                                 <ul className="text-xs space-y-1">
                                     <li className={`flex items-center gap-2 ${hasLength ? 'text-primary' : 'text-subtle-text-light dark:text-subtle-text-dark'}`}>
-                                        <span className="material-symbols-outlined text-[16px]">{hasLength ? 'check_circle' : 'circle'}</span>
+                                        <span className="material-symbols-outlined text-[14px]">{hasLength ? 'check_circle' : 'circle'}</span>
                                         8-20 תווים
                                     </li>
                                     <li className={`flex items-center gap-2 ${hasUpperCase ? 'text-primary' : 'text-subtle-text-light dark:text-subtle-text-dark'}`}>
-                                        <span className="material-symbols-outlined text-[16px]">{hasUpperCase ? 'check_circle' : 'circle'}</span>
+                                        <span className="material-symbols-outlined text-[14px]">{hasUpperCase ? 'check_circle' : 'circle'}</span>
                                         אות גדולה באנגלית (A-Z)
                                     </li>
                                     <li className={`flex items-center gap-2 ${hasTwoNumbers ? 'text-primary' : 'text-subtle-text-light dark:text-subtle-text-dark'}`}>
-                                        <span className="material-symbols-outlined text-[16px]">{hasTwoNumbers ? 'check_circle' : 'circle'}</span>
+                                        <span className="material-symbols-outlined text-[14px]">{hasTwoNumbers ? 'check_circle' : 'circle'}</span>
                                         לפחות 2 מספרים
                                     </li>
                                 </ul>
@@ -229,20 +230,17 @@ export default function Register() {
                     </div>
                     <div className="flex w-full flex-wrap items-end gap-4">
                         <label className="flex w-full flex-col min-w-40 flex-1">
-                            <p className="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">אישור סיסמה</p>
+                            <p className="text-text-light dark:text-text-dark text-sm font-semibold leading-normal pb-2">אימות סיסמה</p>
                             <div className="relative flex w-full flex-1 items-stretch">
                                 <input
-                                    className={`form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark border bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] pr-12 text-base font-normal leading-normal ${passwordError
-                                        ? 'border-red-500 focus:ring-red-500'
-                                        : 'border-border-light dark:border-border-dark focus:ring-primary'
-                                        }`}
+                                    className={`form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-text-light dark:text-text-dark focus:outline-0 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-primary/20 border bg-field-light dark:bg-field-dark h-14 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark p-[15px] pr-12 text-base font-normal leading-normal transition-all duration-200 shadow-xs ${passwordError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-zinc-200 dark:border-border-dark focus:border-primary'}`}
                                     placeholder="הקלד/י את הסיסמה שוב"
                                     type={showConfirmPassword ? "text" : "password"}
                                     value={confirmPassword}
                                     onChange={handleConfirmPasswordChange}
                                 />
                                 <div
-                                    className="absolute inset-y-0 right-0 flex cursor-pointer items-center justify-center pr-4 text-subtle-text-light dark:text-subtle-text-dark"
+                                    className="absolute inset-y-0 right-0 flex cursor-pointer items-center justify-center pr-4 text-subtle-text-light dark:text-subtle-text-dark hover:text-primary transition-colors"
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 >
                                     <span className="material-symbols-outlined">{showConfirmPassword ? 'visibility_off' : 'visibility'}</span>
@@ -254,29 +252,29 @@ export default function Register() {
                         </label>
                     </div>
                     <div className="flex w-full flex-col pt-2">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-start gap-3">
                             <input
-                                className={`form-checkbox h-5 w-5 rounded bg-field-light dark:bg-field-dark text-primary focus:ring-primary focus:ring-offset-background-light dark:focus:ring-offset-background-dark ${agreementError ? 'border-red-500' : 'border-border-light dark:border-border-dark'}`}
+                                className={`form-checkbox mt-1 h-5 w-5 rounded bg-field-light dark:bg-field-dark text-primary focus:ring-primary focus:ring-offset-background-light dark:focus:ring-offset-background-dark ${agreementError ? 'border-red-500' : 'border-border-light dark:border-border-dark'}`}
                                 id="terms-checkbox"
                                 type="checkbox"
                                 checked={agreedToTerms}
                                 onChange={(e) => setAgreedToTerms(e.target.checked)}
                             />
-                            <label className="text-sm text-subtle-text-light dark:text-subtle-text-dark" htmlFor="terms-checkbox">
+                            <label className="text-sm text-subtle-text-light dark:text-subtle-text-dark leading-snug" htmlFor="terms-checkbox">
                                 אני מסכים ל<a className="font-semibold text-primary hover:underline" href="#">תנאי השימוש</a> ול<a className="font-semibold text-primary hover:underline" href="#">מדיניות הפרטיות</a>.
                             </label>
                         </div>
                         {agreementError && <p className="text-sm text-red-500 mt-1">{agreementError}</p>}
                     </div>
-                    <div className="mt-8 flex w-full">
-                        <button type="submit" className="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 flex-1 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-colors">
+                    <div className="mt-6 flex w-full">
+                        <button type="submit" className="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 flex-1 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-all duration-200 shadow-sm">
                             <span className="truncate">הרשמה</span>
                         </button>
                     </div>
                 </form>
-                <div className="mt-8 text-center">
+                <div className="mt-6 text-center">
                     <p className="text-sm text-subtle-text-light dark:text-subtle-text-dark">
-                        כבר יש לך חשבון?
+                        כבר יש לך חשבון?{' '}
                         <Link className="font-semibold text-primary hover:underline" to="/login">התחבר/י</Link>
                     </p>
                 </div>

@@ -1,0 +1,184 @@
+<!DOCTYPE html><html dir="rtl" lang="he"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>הרשמה ל-PayShift</title>
+<!-- Tailwind CSS v3 CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Manrope (from Design System) and Assistant for Hebrew fallback -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Assistant:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+        :root {
+            --primary: #007aff;
+            --surface: #f9f9ff;
+            --surface-container-low: #f1f3fe;
+            --text-main: #1a1c1e;
+        }
+        body {
+            font-family: 'Manrope', 'Assistant', sans-serif;
+            background-color: var(--surface);
+        }
+        .input-field-height {
+            height: 64px;
+        }
+        /* DESIGN_SYSTEM_111: ROUND_EIGHT */
+        .rounded-custom {
+            border-radius: 8px;
+        }
+        /* Custom styles for the registration flow */
+        .btn-primary-blue {
+            background-color: var(--primary);
+        }
+        .error-ring {
+            box-shadow: 0 0 0 2px #ef4444;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800">
+<!-- BEGIN: MainContainer -->
+<main class="flex-grow flex flex-col px-6 pt-12 pb-8 max-w-md mx-auto w-full" data-purpose="registration-form-container">
+<!-- BEGIN: HeaderSection -->
+<header class="flex items-center justify-between mb-10" data-purpose="screen-header">
+<!-- Back Arrow Icon (Standalone flow, keeps back button for UX) -->
+<button aria-label="חזרה" class="p-2" onclick="history.back()">
+<svg class="h-8 w-8 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<h1 class="text-2xl font-extrabold text-center flex-grow pr-8" style="color: var(--text-main);">הרשמה ל-PayShift</h1>
+</header>
+<!-- END: HeaderSection -->
+<!-- BEGIN: RegistrationForm -->
+<form class="space-y-4" data-purpose="registration-form" id="registrationForm" onsubmit="event.preventDefault(); if(checkValidity()){ window.location.href='{{DATA:SCREEN:SCREEN_97}}'; }">
+<!-- Name Row: First and Last Name -->
+<div class="grid grid-cols-2 gap-4">
+<div class="relative">
+<input class="w-full input-field-height rounded-custom border-none text-center text-lg text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 bg-white shadow-sm" data-purpose="first-name-input" name="firstName" placeholder="שם פרטי" required="" type="text">
+</div>
+<div class="relative">
+<input class="w-full input-field-height rounded-custom border-none text-center text-lg text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 bg-white shadow-sm" data-purpose="last-name-input" name="lastName" placeholder="שם משפחה" required="" type="text">
+</div>
+</div>
+<!-- Username -->
+<div class="relative">
+<input class="w-full input-field-height rounded-custom border-none text-center text-lg text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 bg-white shadow-sm" data-purpose="username-input" name="username" placeholder="שם משתמש" required="" type="text">
+</div>
+<!-- Email -->
+<div class="relative">
+<input class="w-full input-field-height rounded-custom border-none text-center text-lg text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 bg-white shadow-sm" data-purpose="email-input" id="emailInput" name="email" placeholder="אימייל" required="" type="email">
+<p class="hidden text-red-500 text-center text-sm mt-1" data-purpose="error-message" id="emailError">כתובת אימייל לא תקינה</p>
+</div>
+<!-- Password -->
+<div class="relative">
+<div class="absolute inset-y-0 right-4 flex items-center">
+<button class="text-slate-400" onclick="togglePassword('passwordInput')" type="button">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<input class="w-full input-field-height rounded-custom border-none text-center text-lg text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 bg-white shadow-sm" data-purpose="password-input" id="passwordInput" name="password" placeholder="סיסמה" required="" type="password">
+</div>
+<!-- Confirm Password -->
+<div class="relative">
+<div class="absolute inset-y-0 right-4 flex items-center">
+<button class="text-slate-400" onclick="togglePassword('confirmPasswordInput')" type="button">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<input class="w-full input-field-height rounded-custom border-none text-center text-lg text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 bg-white shadow-sm" data-purpose="confirm-password-input" id="confirmPasswordInput" name="confirmPassword" placeholder="אימות סיסמה" required="" type="password">
+<p class="hidden text-red-500 text-center text-sm mt-1" data-purpose="error-message" id="passwordError">הסיסמאות אינן תואמות</p>
+</div>
+<!-- Submit Button -->
+<div class="pt-6">
+<button class="w-full py-5 btn-primary-blue text-white text-xl font-bold rounded-custom shadow-lg active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none" data-purpose="submit-button" id="submitButton" type="submit" disabled="">
+                הרשמה
+            </button>
+</div>
+</form>
+<!-- END: RegistrationForm -->
+<!-- BEGIN: FooterLinks -->
+<footer class="mt-12 text-center" data-purpose="footer-navigation">
+<p class="text-slate-600 text-lg">
+            יש לך כבר חשבון? <a class="font-bold" href="{{DATA:SCREEN:SCREEN_52}}" style="color: var(--primary);">התחבר</a>
+</p>
+</footer>
+<!-- END: FooterLinks -->
+</main>
+<!-- END: MainContainer -->
+<script>
+    const form = document.getElementById('registrationForm');
+    const emailInput = document.getElementById('emailInput');
+    const emailError = document.getElementById('emailError');
+    const passwordInput = document.getElementById('passwordInput');
+    const confirmPasswordInput = document.getElementById('confirmPasswordInput');
+    const passwordError = document.getElementById('passwordError');
+    const submitButton = document.getElementById('submitButton');
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function checkValidity() {
+        let isValid = true;
+        
+        // Check Required & Email format
+        if (!validateEmail(emailInput.value)) {
+            if (emailInput.value !== "") {
+                emailError.classList.remove('hidden');
+                emailInput.classList.add('error-ring');
+            }
+            isValid = false;
+        } else {
+            emailError.classList.add('hidden');
+            emailInput.classList.remove('error-ring');
+        }
+
+        // Check Passwords Match
+        if (passwordInput.value !== confirmPasswordInput.value && confirmPasswordInput.value !== "") {
+            passwordError.classList.remove('hidden');
+            confirmPasswordInput.classList.add('error-ring');
+            isValid = false;
+        } else {
+            passwordError.classList.add('hidden');
+            confirmPasswordInput.classList.remove('error-ring');
+        }
+
+        // Check overall form validity (required fields)
+        if (!form.checkValidity()) {
+            isValid = false;
+        }
+
+        // Button State
+        submitButton.disabled = !isValid;
+        return isValid;
+    }
+
+    // Real-time validation
+    form.addEventListener('input', checkValidity);
+
+    form.onsubmit = (e) => {
+        e.preventDefault();
+        if (checkValidity()) {
+            // Success state - in real app would send to server
+            window.location.href = '{{DATA:SCREEN:SCREEN_91}}';
+        }
+    };
+
+    // Initial check
+    checkValidity();
+</script>
+
+
+
+
+</body></html>

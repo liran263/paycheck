@@ -1,0 +1,205 @@
+<!DOCTYPE html><html dir="rtl" lang="he"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Monthly Summary Report</title>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#007AFF',
+                        'surface': '#f9f9ff',
+                        'surface-dim': '#d8d9e5',
+                        'surface-container-low': '#f1f3fe',
+                        'surface-container-lowest': '#ffffff',
+                        'text-dark': '#1C1C1E',
+                        'text-muted': '#8E8E93',
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'system-ui', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'custom': '8px',
+                    }
+                }
+            }
+        }
+    </script>
+<style data-purpose="custom-styling">
+        body {
+            background-color: #f9f9ff;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Custom shadow for cards */
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+        /* Hide scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .rounded-eight {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="font-sans text-text-dark bg-surface">
+<!-- BEGIN: MainHeader -->
+<header class="bg-white px-4 py-4 flex items-center sticky top-0 z-50 border-b border-surface-dim/20">
+<div class="flex-1">
+<button class="p-2" data-purpose="back-button" onclick="window.location.href='{{DATA:SCREEN:SCREEN_91}}'">
+<svg class="text-brand-blue rotate-180" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" width="24">
+<polyline points="15 18 9 12 15 6"></polyline>
+</svg>
+</button>
+</div>
+<h1 class="text-lg font-extrabold text-center flex-[2]">סיכום חודשי</h1>
+<div class="flex-1"></div>
+</header>
+<!-- END: MainHeader -->
+<main class="p-4 space-y-6 pb-24">
+<!-- BEGIN: FilterSection -->
+<section class="bg-white rounded-eight p-6 card-shadow space-y-4" data-purpose="filters">
+<div class="space-y-2">
+<label class="text-sm text-text-muted font-medium pr-1">בחר עבודה</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-gray-200 rounded-eight py-3 px-4 appearance-none focus:ring-brand-blue focus:border-brand-blue text-lg">
+<option>מהנדס תוכנה</option>
+</select>
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<svg class="text-text-muted" fill="currentColor" height="20" viewBox="0 0 20 20" width="20">
+<path clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" fill-rule="evenodd"></path>
+</svg>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm text-text-muted font-medium pr-1">בחר חודש</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-gray-200 rounded-eight py-3 px-4 appearance-none focus:ring-brand-blue focus:border-brand-blue text-lg">
+<option>נובמבר 2023</option>
+</select>
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<svg class="text-text-muted" fill="currentColor" height="20" viewBox="0 0 20 20" width="20">
+<path clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" fill-rule="evenodd"></path>
+</svg>
+</div>
+</div>
+</div>
+</section>
+<!-- END: FilterSection -->
+<!-- BEGIN: SummaryGrid -->
+<section class="grid grid-cols-2 gap-4" data-purpose="summary-stats">
+<!-- Total Hours -->
+<div class="bg-surface-container-low rounded-eight p-4 flex flex-col justify-between h-28 border border-surface-dim/10">
+<div class="flex items-center gap-2 text-brand-blue">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="text-sm font-semibold">סה"כ שעות</span>
+</div>
+<div class="text-3xl font-extrabold">172</div>
+</div>
+<!-- Overtime -->
+<div class="bg-surface-container-low rounded-eight p-4 flex flex-col justify-between h-28 border border-surface-dim/10">
+<div class="flex items-center gap-2 text-brand-blue">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="text-sm font-semibold">שעות נוספות</span>
+</div>
+<div class="text-3xl font-extrabold">12</div>
+</div>
+<!-- Bonuses -->
+<div class="bg-surface-container-low rounded-eight p-4 flex flex-col justify-between h-28 border border-surface-dim/10">
+<div class="flex items-center gap-2 text-brand-blue">
+<span class="material-symbols-outlined text-[18px]">card_giftcard</span>
+<span class="text-sm font-semibold">בונוסים</span>
+</div>
+<div class="text-3xl font-extrabold">₪500</div>
+</div>
+<!-- Total Salary -->
+<div class="bg-brand-blue rounded-eight p-4 flex flex-col justify-between h-28 text-white shadow-lg shadow-brand-blue/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="text-sm font-semibold">סה"כ</span>
+</div>
+<div class="text-3xl font-extrabold">₪12,345</div>
+</div>
+</section>
+<!-- END: SummaryGrid -->
+<!-- BEGIN: ShiftDetailsTable -->
+<section class="bg-white rounded-eight card-shadow overflow-hidden" data-purpose="shift-details">
+<table class="w-full text-right border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-brand-blue text-sm border-b border-surface-dim/20">
+<th class="p-4 font-bold">תאריך</th>
+<th class="p-4 font-bold">התחלה</th>
+<th class="p-4 font-bold">סיום</th>
+<th class="p-4 font-bold text-center">סה"כ</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-dim/10">
+<!-- Row 1 -->
+<tr>
+<td class="p-4 text-sm font-semibold">01.11.2023</td>
+<td class="p-4 text-sm text-text-muted">09:00</td>
+<td class="p-4 text-sm text-text-muted">17:00</td>
+<td class="p-4 text-sm font-extrabold text-center text-brand-blue">8 ש'</td>
+</tr>
+<!-- Row 2 -->
+<tr>
+<td class="p-4 text-sm font-semibold">02.11.2023</td>
+<td class="p-4 text-sm text-text-muted">09:05</td>
+<td class="p-4 text-sm text-text-muted">17:35</td>
+<td class="p-4 text-sm font-extrabold text-center text-brand-blue">8.5 ש'</td>
+</tr>
+<!-- Row 3 -->
+<tr>
+<td class="p-4 text-sm font-semibold">03.11.2023</td>
+<td class="p-4 text-sm text-text-muted">08:58</td>
+<td class="p-4 text-sm text-text-muted">18:02</td>
+<td class="p-4 text-sm font-extrabold text-center text-brand-blue">9 ש'</td>
+</tr>
+<!-- Row 4 -->
+<tr>
+<td class="p-4 text-sm font-semibold">06.11.2023</td>
+<td class="p-4 text-sm text-text-muted">09:00</td>
+<td class="p-4 text-sm text-text-muted">17:00</td>
+<td class="p-4 text-sm font-extrabold text-center text-brand-blue">8 ש'</td>
+</tr>
+<!-- Row 5 -->
+<tr>
+<td class="p-4 text-sm font-semibold">07.11.2023</td>
+<td class="p-4 text-sm text-text-muted">09:10</td>
+<td class="p-4 text-sm text-text-muted">17:15</td>
+<td class="p-4 text-sm font-extrabold text-center text-brand-blue">8 ש'</td>
+</tr>
+</tbody>
+</table>
+</section>
+<!-- END: ShiftDetailsTable -->
+</main>
+<!-- BEGIN: FooterAction -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-surface-dim/20 px-6 py-3 flex justify-between items-center max-w-[480px] mx-auto z-50 rounded-t-xl shadow-2xl" data-purpose="bottom-navigation">
+<a class="flex flex-col items-center text-slate-400 gap-1 hover:text-brand-blue transition-colors" href="{{DATA:SCREEN:SCREEN_91}}">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<span class="text-xs font-medium">בית</span>
+</a>
+<a class="flex flex-col items-center text-slate-400 gap-1 hover:text-brand-blue transition-colors" href="{{DATA:SCREEN:SCREEN_54}}">
+<span class="material-symbols-outlined text-[24px]">schedule</span>
+<span class="text-xs font-medium">משמרות</span>
+</a>
+<a class="flex flex-col items-center text-brand-blue gap-1" href="{{DATA:SCREEN:SCREEN_58}}">
+<span class="material-symbols-outlined text-[24px] fill-[1]">description</span>
+<span class="text-xs font-bold">דוחות</span>
+</a>
+<a class="flex flex-col items-center text-slate-400 gap-1 hover:text-brand-blue transition-colors" href="{{DATA:SCREEN:SCREEN_85}}">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<span class="text-xs font-medium">הגדרות</span>
+</a>
+</nav>
+<!-- END: FooterAction -->
+
+
+</body></html>

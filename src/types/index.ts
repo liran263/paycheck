@@ -5,6 +5,8 @@ export interface User {
   profilePictureUrl?: string;
   defaultHourlyWage: number;
   defaultOvertimePercentage: number;
+  role?: string; // Audited user role
+  createdAt?: string; // Audited creation timestamp
 }
 
 export interface Job {
@@ -16,9 +18,11 @@ export interface Job {
   overtimeStartsAfterHours: number;
   overtimePercentage: number;
   travelExpenses: number;
+  travelMode: 'per_shift' | 'per_month' | 'disabled'; // How travel is calculated
   autoBreakMinutes: number;
   paymentCycleStartDate: number; // Day of the month (1-31)
   remindersEnabled: boolean;
+  createdAt?: string; // Audited creation timestamp
 }
 
 export type ShiftStatus = 'planned' | 'completed' | 'paid';
@@ -32,6 +36,7 @@ export interface Shift {
   breakMinutes: number;
   bonuses: number;
   notes?: string;
+  createdAt?: string; // Audited creation timestamp
 }
 
 export interface MonthlySummary {

@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, FC } from 'react';
+import { type InputHTMLAttributes, type FC } from 'react';
 
 interface SwitchProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;

@@ -1,0 +1,170 @@
+<!DOCTYPE html><html dir="rtl" lang="he" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Job Dashboard</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Font Awesome for Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style data-purpose="custom-layout">
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+    
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #f9f9ff; /* surface from DESIGN_SYSTEM_111 */
+    }
+
+    .dashboard-container {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Custom shadow for cards based on DESIGN_SYSTEM_111 roundness and style */
+    .card-shadow {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+    
+    .rounded-eight {
+      border-radius: 32px;
+    }
+  </style>
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-blue': '#007aff',
+            'brand-bg': '#f9f9ff',
+            'icon-blue-bg': '#f1f3fe', /* surface-container-low */
+          },
+          borderRadius: {
+            'eight': '32px',
+          }
+        }
+      }
+    }
+  </script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" data-snapdom="injected-import"></head>
+<body class="bg-brand-bg text-slate-800" data-mode="connect">
+<div class="dashboard-container pb-24">
+<!-- BEGIN: Header -->
+<header class="flex justify-between items-center px-6 py-6" data-purpose="main-header">
+<a class="flex items-center gap-2 cursor-pointer" data-purpose="job-selector" href="{{DATA:SCREEN:SCREEN_98}}">
+<h1 class="text-2xl font-bold text-brand-blue">העבודה העיקרית שלי</h1>
+<i class="fa-solid fa-chevron-down text-brand-blue text-lg"></i>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-slate-300 overflow-hidden" href="{{DATA:SCREEN:SCREEN_95}}">
+<i class="fa-regular fa-user text-2xl text-slate-600"></i>
+</a>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Action Cards Grid -->
+<main class="px-5 grid grid-cols-2 gap-4" data-purpose="action-grid">
+<!-- Add Shift Card -->
+<a class="bg-brand-blue rounded-eight p-6 h-44 flex flex-col justify-between text-white shadow-lg cursor-pointer transition-transform active:scale-95" data-purpose="add-shift-btn" href="{{DATA:SCREEN:SCREEN_4}}">
+<div class="bg-white/20 w-12 h-12 rounded-full flex items-center justify-center">
+<i class="fa-solid fa-plus text-2xl"></i>
+</div>
+<span class="text-xl font-bold">הוספת משמרת</span>
+</a>
+<!-- Hourly Wage Card -->
+<a class="bg-white rounded-eight p-6 h-44 flex flex-col justify-between card-shadow cursor-pointer transition-transform active:scale-95" data-purpose="wage-card" href="{{DATA:SCREEN:SCREEN_97}}">
+<div class="bg-icon-blue-bg w-12 h-12 rounded-2xl flex items-center justify-center">
+<i class="fa-solid fa-money-bill-1-wave text-brand-blue text-xl"></i>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-400 text-sm">שכר שעתי</span>
+<span class="text-xl font-bold" id="wage-value">₪55.00</span>
+</div>
+</a>
+<!-- Overtime Card -->
+<a class="bg-white rounded-eight p-6 h-44 flex flex-col justify-between card-shadow cursor-pointer transition-transform active:scale-95" data-purpose="overtime-card" href="{{DATA:SCREEN:SCREEN_37}}">
+<div class="bg-icon-blue-bg w-12 h-12 rounded-2xl flex items-center justify-center">
+<i class="fa-regular fa-clock text-brand-blue text-xl"></i>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-400 text-sm">שעות נוספות</span>
+<span class="text-xl font-bold" id="overtime-value">החל מ-8 שע'</span>
+</div>
+</a>
+<!-- Breaks Card (Replaced Bonuses) -->
+<a class="bg-white rounded-eight p-6 h-44 flex flex-col justify-between card-shadow cursor-pointer transition-transform active:scale-95" data-purpose="breaks-card" href="#"><div class="bg-icon-blue-bg w-12 h-12 rounded-2xl flex items-center justify-center overflow-hidden"><img alt="הפסקות" class="w-8 h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNSyhZ-TjZz8TaOuObWfywuHCQp04GvUmxaxBveZR8GI2aBSKeVu1GeUef_zVvRBFBk6YvkbW-7GDT0Cnf8jLj2I38KZZZSLFEyXewl78zCxHY6_sfoLS1pikPVKQICio3wDkIKPu3ZwR1oFWfyEPZb6RlrEZmqSsSMnKAiFFEuE4-QlOFwdfMylhOp8214wGSv1WRzUpPPLncSusYF6o00eradiBuSiakLBTA4lWs96AeNdKlHgVPeucK_2bSp-HIMtN3E55wCNk"></div><div class="flex flex-col"><span class="text-slate-400 text-sm">הפסקות</span><span class="text-xl font-bold" id="breaks-value">30 דק'</span></div></a>
+</main>
+<!-- END: Action Cards Grid -->
+<!-- BEGIN: Monthly Summary -->
+<section class="px-5 mt-6" data-purpose="monthly-summary">
+<a class="bg-white rounded-eight p-6 card-shadow min-h-[380px] flex flex-col block" href="{{DATA:SCREEN:SCREEN_101}}">
+<!-- Summary Header -->
+<div class="flex justify-between items-start mb-auto">
+<div class="flex gap-4">
+<div class="bg-icon-blue-bg w-12 h-12 rounded-2xl flex items-center justify-center">
+<i class="fa-regular fa-calendar-days text-brand-blue text-xl"></i>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-400 text-sm">החודש</span>
+<span class="text-2xl font-bold">₪ 4,580.00</span>
+</div>
+</div>
+<div class="pt-2">
+<i class="fa-solid fa-chevron-left text-slate-300"></i>
+</div>
+</div>
+<!-- Bottom Stats Row -->
+<div class="grid grid-cols-3 border-t border-slate-50 pt-8 mt-12 text-center">
+<div class="flex flex-col">
+<span class="text-2xl font-bold text-slate-800">15</span>
+<span class="text-slate-400 text-sm">משמרות</span>
+</div>
+<div class="flex flex-col">
+<span class="text-2xl font-bold text-slate-800">120h</span>
+<span class="text-slate-400 text-sm">שעות</span>
+</div>
+<div class="flex flex-col">
+<span class="text-2xl font-bold text-slate-800">₪120</span>
+<span class="text-slate-400 text-sm">בונוסים</span>
+</div>
+</div>
+</a>
+</section>
+<!-- END: Monthly Summary -->
+<!-- BEGIN: Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-6 py-3 flex justify-between items-center max-w-[480px] mx-auto z-50" data-purpose="bottom-navigation">
+<a class="flex flex-col items-center text-brand-blue gap-1" href="#">
+<i class="fa-solid fa-house text-xl"></i>
+<span class="text-xs font-semibold">בית</span>
+</a>
+<a class="flex flex-col items-center text-slate-400 gap-1 hover:text-brand-blue transition-colors" href="#">
+<i class="fa-solid fa-list-ul text-xl"></i>
+<span class="text-xs">משמרות</span>
+</a>
+<a class="flex flex-col items-center text-slate-400 gap-1 hover:text-brand-blue transition-colors" href="{{DATA:SCREEN:SCREEN_101}}">
+<i class="fa-solid fa-chart-pie text-xl"></i>
+<span class="text-xs">דוחות</span>
+</a>
+<a class="flex flex-col items-center text-slate-400 gap-1 hover:text-brand-blue transition-colors" href="{{DATA:SCREEN:SCREEN_85}}">
+<i class="fa-solid fa-gear text-xl"></i>
+<span class="text-xs">הגדרות</span>
+</a>
+</nav>
+<!-- END: Bottom Navigation -->
+</div>
+
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const wage = localStorage.getItem('hourly_wage');
+        const overtime = localStorage.getItem('overtime_rule');
+        const breaks = localStorage.getItem('break_time');
+
+        if (wage) document.getElementById('wage-value').textContent = '₪' + parseFloat(wage).toFixed(2);
+        if (overtime) document.getElementById('overtime-value').textContent = 'החל מ-' + overtime + ' שע\'';
+        if (breaks) document.getElementById('breaks-value').textContent = breaks + ' דק\'';
+    });
+</script></body></html>

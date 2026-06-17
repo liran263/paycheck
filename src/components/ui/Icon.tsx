@@ -1,6 +1,6 @@
-import React from 'react';
+import { type HTMLAttributes, type FC } from 'react';
 
-interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
+interface IconProps extends HTMLAttributes<HTMLSpanElement> {
   name: string;
   size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
   filled?: boolean;
@@ -16,7 +16,7 @@ const sizeMap = {
   '4xl': 'text-4xl',
 };
 
-export const Icon: React.FC<IconProps> = ({ 
+export const Icon: FC<IconProps> = ({ 
   name, 
   size = '2xl', 
   filled = false,

@@ -1,0 +1,269 @@
+<!DOCTYPE html><html dir="rtl" lang="he"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#717786",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f1f0f5",
+                    "surface": "#faf9fe",
+                    "on-secondary-container": "#fffbff",
+                    "secondary-fixed": "#e2dfff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#72fe88",
+                    "on-secondary-fixed-variant": "#3631b4",
+                    "on-tertiary-fixed-variant": "#00531c",
+                    "primary-fixed-dim": "#adc6ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#faf9fe",
+                    "outline-variant": "#c1c6d7",
+                    "secondary": "#4c4aca",
+                    "on-background": "#1a1b1f",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#fefcff",
+                    "primary-container": "#0070eb",
+                    "on-primary-fixed": "#001a41",
+                    "primary": "#0058bc",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e3e2e7",
+                    "surface-tint": "#005bc1",
+                    "on-primary-fixed-variant": "#004493",
+                    "surface-variant": "#e3e2e7",
+                    "tertiary-container": "#008733",
+                    "primary-fixed": "#d8e2ff",
+                    "secondary-fixed-dim": "#c2c1ff",
+                    "inverse-primary": "#adc6ff",
+                    "on-surface": "#1a1b1f",
+                    "surface-dim": "#dad9df",
+                    "surface-container-low": "#f4f3f8",
+                    "surface-container-high": "#e9e7ed",
+                    "tertiary": "#006b27",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#53e16f",
+                    "on-tertiary-container": "#f7fff2",
+                    "on-tertiary-fixed": "#002107",
+                    "on-surface-variant": "#414755",
+                    "on-secondary-fixed": "#0c006a",
+                    "surface-container": "#eeedf3",
+                    "background": "#faf9fe",
+                    "inverse-surface": "#2f3034",
+                    "secondary-container": "#6664e4",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "container-padding": "20px",
+                    "gutter": "16px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Manrope"],
+                    "label-caps": ["Manrope"],
+                    "body-sm": ["Manrope"],
+                    "title-md": ["Manrope"],
+                    "headline-lg-mobile": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "display": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #faf9fe;
+            color: #1a1b1f;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .soft-shadow {
+            box-shadow: 0 8px 20px rgba(0, 64, 255, 0.04);
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #e3e2e7;
+            border-radius: 9999px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #0058bc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 0 4px rgba(0, 88, 188, 0.1);
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col pb-32">
+<!-- Top AppBar (JSON Shell) -->
+<header class="fixed top-0 w-full z-40 bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-xl border-b border-white/10 shadow-sm flex justify-between items-center px-container-padding h-16">
+<div class="flex items-center gap-4">
+<button aria-label="Back" class="active:scale-95 duration-200 hover:opacity-80 transition-opacity p-2 -mr-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">עריכת שעות נוספות</h1>
+</div>
+<div class="flex items-center">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">person</span>
+</div>
+</div>
+</header>
+<main class="mt-20 px-container-padding flex-1 flex flex-col gap-lg">
+<!-- Hero Visual Section -->
+<section class="flex flex-col items-center justify-center py-xl bg-gradient-to-b from-primary/5 to-transparent rounded-3xl">
+<div class="w-32 h-32 rounded-3xl bg-white soft-shadow flex items-center justify-center p-6 relative overflow-hidden group">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<img alt="" class="w-full h-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-110" data-alt="A clean and professional digital icon representing workplace overtime. The image features a stylized circular clock face with a prominent plus symbol in the center, rendered in a palette of deep royal blues and crisp whites. The background is a soft, light-mode lavender gray, enhancing the professional and reliable aesthetic. Lighting is even and clinical, emphasizing a modern corporate efficiency and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZBEnk5HaBEZDZsNTPownKht2z8Bq3te2OqlVXEPkuFv1BZ_rwvAwo8PksXDm_id-vK2bGhERpDOFE435gpkS1HAV0JO8Uyh8w0U177hRfEBEqabptMqDuH2Wenr1qqD5fJenWkv6OkyeCE5iWhrG0M-iFT8PgkLTfiYIQXwNbHXxYRpNHjUtHxWWvBab9PAEJ5Vmedn27_yyC5UZFVGRXNmA0gDmbE9UTlnaIYhu_cUDIu_0z7McTVPyVPY1rzCSjLd_azprUFHw">
+</div>
+<div class="mt-md text-center">
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[280px]">הגדר מתי יתחילו להיחשב שעות נוספות ביום העבודה שלך</p>
+</div>
+</section>
+<!-- Overtime Controls -->
+<div class="flex flex-col gap-md">
+<!-- Toggle Rule -->
+<div class="bg-white p-lg rounded-[24px] soft-shadow flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">הפעל שעות נוספות</span>
+<span class="font-body-sm text-body-sm text-outline">חישוב אוטומטי של תעריף נוסף</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="otToggle" type="checkbox">
+<div class="w-14 h-8 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-[-24px] peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:right-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Slider Card -->
+<div class="bg-white p-lg rounded-[24px] soft-shadow flex flex-col gap-lg transition-opacity duration-300" id="sliderContainer">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface">סף שעות יומי</span>
+<div class="bg-primary/10 px-4 py-2 rounded-xl">
+<span class="font-display text-primary text-[28px]" id="hourValue">8.0</span>
+<span class="font-body-sm text-primary mr-1">שעות</span>
+</div>
+</div>
+<div class="relative py-4">
+<input class="relative z-10" id="hourSlider" max="12" min="1" step="0.5" type="range" value="8">
+<div class="flex justify-between mt-4 px-1">
+<span class="font-label-caps text-label-caps text-outline">1ש'</span>
+<span class="font-label-caps text-label-caps text-outline">6ש'</span>
+<span class="font-label-caps text-label-caps text-outline">12ש'</span>
+</div>
+</div>
+<div class="p-md bg-surface-container-low rounded-xl border border-outline-variant/30">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                            כל שעה מעבר לסף זה תחושב לפי תעריף של 125% עבור השעתיים הראשונות, ו-150% לאחר מכן.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Summary Text -->
+<div class="px-container-padding">
+<p class="font-body-sm text-body-sm text-outline text-center">שינויים אלו יחולו על כל המשמרות העתידיות ביומן העבודה שלך.</p>
+</div>
+</div>
+</main>
+<!-- Fixed Action Button Area -->
+<div class="fixed bottom-24 left-0 w-full px-container-padding z-40">
+<button class="w-full h-14 bg-primary text-on-primary rounded-[16px] font-title-md text-title-md shadow-lg active:scale-[0.98] transition-transform duration-150 flex items-center justify-center gap-2" onclick="localStorage.setItem('overtime_rule', '8.0'); window.location.href='{{DATA:SCREEN:SCREEN_98}}';">
+<span class="material-symbols-outlined">save</span>
+<span>שמור שינויים</span>
+</button>
+</div>
+<!-- Bottom Navigation (JSON Shell) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-4 pb-4 bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-xl border-t border-white/10 shadow-[0_-8px_20px_rgba(0,64,255,0.04)] z-50 rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-4 py-1 hover:bg-primary/5 transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-4 py-1 hover:bg-primary/5 transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-label-caps text-label-caps">Shifts</span>
+</div>
+<div class="flex flex-col items-center justify-center text-outline dark:text-outline-variant px-4 py-1 hover:bg-primary/5 transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-caps text-label-caps">Reports</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container/20 text-primary dark:text-primary-fixed-dim rounded-xl px-4 py-1 hover:bg-primary/5 transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</div>
+</nav>
+<script>
+        const slider = document.getElementById('hourSlider');
+        const display = document.getElementById('hourValue');
+        const toggle = document.getElementById('otToggle');
+        const container = document.getElementById('sliderContainer');
+
+        slider.addEventListener('input', (e) => {
+            let val = parseFloat(e.target.value).toFixed(1);
+            display.textContent = val;
+        });
+
+        toggle.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                container.style.opacity = '1';
+                container.style.pointerEvents = 'auto';
+            } else {
+                container.style.opacity = '0.4';
+                container.style.pointerEvents = 'none';
+            }
+        });
+
+        // Simple haptic-like scale effect on buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    btn.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

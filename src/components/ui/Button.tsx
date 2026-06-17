@@ -1,13 +1,14 @@
-import { ButtonHTMLAttributes, FC } from 'react';
+import { type ButtonHTMLAttributes, type FC } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'ghost' | 'danger' | 'outline';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline';
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'icon';
   fullWidth?: boolean;
 }
 
 const variantStyles = {
   primary: 'bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/30',
+  secondary: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700',
   ghost: 'bg-transparent text-primary hover:bg-primary/10',
   danger: 'bg-transparent text-red-500 hover:bg-red-50',
   outline: 'bg-transparent border border-gray-300 text-text-light dark:text-text-dark dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'

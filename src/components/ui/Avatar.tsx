@@ -1,4 +1,4 @@
-import { HTMLAttributes, FC } from 'react';
+import { type HTMLAttributes, type FC } from 'react';
 
 interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   src?: string;

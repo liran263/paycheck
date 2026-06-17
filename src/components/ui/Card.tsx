@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode, FC } from 'react';
+import { type HTMLAttributes, type ReactNode, type FC } from 'react';
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -22,7 +22,7 @@ export const Card: FC<CardProps> = ({
 }) => {
   return (
     <div 
-      className={`bg-white dark:bg-card-dark rounded-xl shadow-sm ${paddingMap[padding]} ${interactive ? 'cursor-pointer hover:shadow-md transition-shadow' : ''} ${className}`}
+      className={`bg-white rounded-xl shadow-sm border border-[rgba(216,217,229,0.15)] ${paddingMap[padding]} ${interactive ? 'cursor-pointer hover:shadow-md transition-shadow' : ''} ${className}`}
       {...props}
     >
       {children}

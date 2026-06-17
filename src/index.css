@@ -1,12 +1,187 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --color-primary: #607AFB;
-    --color-background-light: #f5f6f8;
-    --color-background-dark: #0f1323;
+    --color-primary: #007AFF;
+    --color-background-light: #f9f9ff;
+    --color-background-dark: #0B1120;
+    --color-card-light: #ffffff;
+    --color-card-dark: #131D35;
+    --color-border-light: rgba(216, 217, 229, 0.2);
+    --color-border-dark: rgba(216, 217, 229, 0.2);
+    --color-text-light: #1C1C1E;
+    --color-text-dark: #E8EFFF;
     --font-display: "Manrope", sans-serif;
+
+    --color-accent-green: #34C759;
+    --color-surface-dark: #1A2545;
+    --color-primary-green: #10B981;
+    --color-field-light: #f4f4f7;
+    --color-field-dark: #1A2545;
+    
+    --radius-soft: 12px;
+    --radius-card: 24px;
+    
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ═══════════════════════════════════════════
+   DARK MODE — comprehensive overrides
+   ═══════════════════════════════════════════ */
+
+.dark {
+    background-color: #0B1120;
+    color: #E8EFFF;
+}
+
+/* ── Backgrounds ── */
+.dark .page-bg        { background-color: #0B1120  !important; }
+.dark .bg-white       { background-color: #131D35  !important; }
+.dark .surface-panel  { background-color: #1A2545  !important; }
+.dark .card-component { background-color: #131D35  !important; border-color: #1E2D50 !important; }
+.dark .bg-white\/70   { background-color: rgba(19,29,53,0.9) !important; }
+.dark .bg-gray-50     { background-color: #1A2545  !important; }
+.dark .bg-gray-200    { background-color: #2A3A60  !important; }
+
+/* Info note */
+.dark .bg-blue-50     { background-color: #0D1E3D  !important; }
+.dark .border-blue-100 { border-color: #1E3A6E !important; }
+.dark .info-note-text { color: #7EB3FF !important; }
+
+/* Primary pill tint */
+.dark .bg-primary\/10 { background-color: rgba(0,122,255,0.25) !important; }
+.dark .bg-primary\/20 { background-color: rgba(0,122,255,0.30) !important; }
+
+/* ── Text — THE MOST IMPORTANT SECTION ── */
+/*
+   All text that was dark (#1C1C1E) needs to be light (#E8EFFF).
+   We target every class/element that could render black text.
+*/
+
+/* Tailwind CSS-variable-based text classes */
+.dark .text-text-light,
+.dark .text-text-dark,
+.dark .text-on-surface,
+.dark .text-on-background { color: #E8EFFF !important; }
+
+/* Hardcoded dark hex text classes */
+.dark .text-\[\#1C1C1E\] { color: #E8EFFF !important; }
+.dark .text-\[\#004493\] { color: #7EB3FF !important; }
+
+/* Tailwind gray/zinc text */
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700   { color: #E8EFFF !important; }
+.dark .text-gray-600   { color: #B0C0E0 !important; }
+
+.dark .text-zinc-900,
+.dark .text-zinc-800,
+.dark .text-zinc-700   { color: #E8EFFF !important; }
+.dark .text-zinc-600   { color: #B0C0E0 !important; }
+.dark .text-zinc-500   { color: #8A9BC8 !important; }
+.dark .text-zinc-400   { color: #8A9BC8 !important; }
+.dark .text-zinc-300   { color: #A0B0D0 !important; }
+
+/* Broad element-level fallback – catches anything without a specific class */
+.dark p,
+.dark span:not(.material-symbols-outlined),
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5,
+.dark td, .dark th,
+.dark label,
+.dark li,
+.dark a:not(.text-primary) {
+    color: #E8EFFF;
+}
+
+/* But keep PRIMARY color as is */
+.dark .text-primary,
+.dark .text-\[#007AFF\] { color: #007AFF !important; }
+
+/* Muted label (zinc tones already handled above but as fallback) */
+.dark .text-subtle-text-light,
+.dark .text-subtle-text-dark { color: #8A9BC8 !important; }
+
+/* ── Borders ── */
+.dark .border-gray-100,
+.dark .border-gray-200 { border-color: #1E2D50 !important; }
+.dark .border-gray-800 { border-color: #1E2D50 !important; }
+.dark .divide-gray-50 > * + *,
+.dark .divide-gray-100 > * + * { border-color: #1E2D50 !important; }
+
+/* ── Tables ── */
+.dark thead tr { background-color: #1A2545 !important; }
+.dark tfoot tr { background-color: #1A2545 !important; }
+.dark tbody tr:hover { background-color: #131D35 !important; }
+.dark tbody { color: #E8EFFF; }
+
+/* ── Header ── */
+.dark header {
+    background-color: #0B1120 !important;
+    border-color: #1E2D50 !important;
+}
+
+/* ── Bottom Nav ── */
+.dark nav.sticky,
+.dark nav.fixed,
+.dark nav {
+    background-color: #131D35 !important;
+    border-color: #1E2D50 !important;
+}
+
+/* ── Form inputs ── */
+.dark select,
+.dark input[type="date"],
+.dark input[type="time"],
+.dark input[type="number"],
+.dark input[type="text"],
+.dark input[type="password"],
+.dark input[type="tel"],
+.dark input[type="email"],
+.dark input:not([type]),
+.dark textarea {
+    background-color: #1A2545 !important;
+    color: #E8EFFF !important;
+    border-color: #1E2D50 !important;
+}
+
+/* Range slider */
+.dark input[type="range"] { background-color: #1A2545 !important; }
+
+/* ── Settings theme buttons ── */
+.dark .mode-card {
+    background-color: #131D35 !important;
+    border-color: #1E2D50 !important;
+}
+.dark .mode-card.selected { border-color: #007AFF !important; }
+
+/* ── Miscellaneous ── */
+.dark .border-y { border-color: #1E2D50 !important; }
+.dark .border-t { border-color: #1E2D50; }
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
+}
+
+@keyframes float-up-fade {
+  0%   { transform: translateY(0px); opacity: 1; }
+  100% { transform: translateY(-52px); opacity: 0; }
+}
+.animate-float-up {
+  animation: float-up-fade 1.2s ease-out forwards;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.animate-slide-up {
+  animation: slide-up 0.32s cubic-bezier(0.32, 0.72, 0, 1) forwards;
 }
