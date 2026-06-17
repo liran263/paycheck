@@ -174,7 +174,6 @@ export const LiveShift: FC = () => {
 
   // field values
   const [editRate, setEditRate] = useState('100');
-  const [editExpenses, setEditExpenses] = useState('0');
   const [editBonuses, setEditBonuses] = useState('0');
 
   const openEditSheet = () => {
@@ -191,7 +190,6 @@ export const LiveShift: FC = () => {
     setPickerTab('end');
 
     setEditRate(activeShift.currentRatePercent.toString());
-    setEditExpenses(activeShift.travelExpenses.toString());
     setEditBonuses(activeShift.bonuses.toString());
     setIsEditSheetOpen(true);
   };
@@ -229,12 +227,6 @@ export const LiveShift: FC = () => {
     setActiveSubModal('none');
   };
 
-  /* ── Save expenses ── */
-  const saveExpenses = () => {
-    if (!activeShift) return;
-    persistShift({ ...activeShift, travelExpenses: parseFloat(editExpenses) || 0 });
-    setActiveSubModal('none');
-  };
 
   /* ── Delete shift ── */
   const handleDeleteShift = () => {
