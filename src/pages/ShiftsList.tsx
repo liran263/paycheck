@@ -351,7 +351,7 @@ export const ShiftsList: FC = () => {
         {/* Blue Header Bar */}
         <div 
           onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-          className="bg-primary hover:bg-primary/95 text-white px-6 py-3.5 flex items-center justify-center cursor-pointer select-none"
+          className="bg-gradient-to-r from-primary via-indigo-600 to-indigo-700 hover:brightness-105 text-white px-6 py-4 flex items-center justify-center cursor-pointer select-none transition-all shadow-md"
           style={{
             borderTopLeftRadius: '1.5rem',
             borderTopRightRadius: '1.5rem',
@@ -360,17 +360,24 @@ export const ShiftsList: FC = () => {
         >
           <div className="flex items-center justify-between w-full max-w-md">
             {/* Pay (Left) */}
-            <span className="font-extrabold text-base" dir="ltr">
-              ₪ {totalPay.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </span>
+            <div className="flex items-center gap-2" dir="ltr">
+              <Icon name="payments" size="md" className="text-indigo-100/80" />
+              <span className="font-black text-lg">
+                ₪ {totalPay.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </span>
+            </div>
 
             {/* Chevron (Center) */}
-            <Icon name={isDrawerOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up'} className="text-white font-bold" size="2xl" />
+            <div className="size-9 rounded-full bg-white/15 hover:bg-white/25 border border-white/10 flex items-center justify-center transition-all duration-200 active:scale-90 shadow-sm backdrop-blur-xs">
+              <Icon name={isDrawerOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up'} className="text-white" size="2xl" />
+            </div>
 
             {/* Hours (Right) */}
-            <span className="font-extrabold text-base">
-              {totalHoursFormatted} שעות
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="font-black text-lg">{totalHoursFormatted}</span>
+              <span className="text-xs text-indigo-100 font-black">{language === 'he' ? 'שעות' : 'hrs'}</span>
+              <Icon name="schedule" size="md" className="text-indigo-100/80" />
+            </div>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState, useEffect, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import { Header } from '../components/ui/Header';
@@ -10,6 +10,13 @@ export const ManageJob: FC = () => {
   const { language } = useAppSettings();
 
   const { jobs, updateJob, deleteJob } = useData();
+
+  // Redirect to home if there are no jobs at all
+  useEffect(() => {
+    if (jobs.length === 0) {
+      navigate('/');
+    }
+  }, [jobs, navigate]);
 
   // Load jobs and find active job
   const activeJobId = localStorage.getItem('paycheck_active_job_id');

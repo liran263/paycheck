@@ -8,90 +8,9 @@ export const mockUser: User = {
   defaultOvertimePercentage: 125,
 };
 
-export const initialJobs: Job[] = [
-  {
-    id: 'j1',
-    userId: 'u1',
-    jobName: 'ברמן קבוע',
-    employerName: 'קפה נואר',
-    hourlyWage: 55,
-    overtimeStartsAfterHours: 8,
-    overtimePercentage: 125,
-    travelExpenses: 20,
-    travelMode: 'per_shift',
-    autoBreakMinutes: 30,
-    paymentCycleStartDate: 1,
-    remindersEnabled: true,
-  },
-  {
-    id: 'j2',
-    userId: 'u1',
-    jobName: 'מפתח/ת Full Stack',
-    employerName: 'Wix',
-    hourlyWage: 80,
-    overtimeStartsAfterHours: 9,
-    overtimePercentage: 125,
-    travelExpenses: 0,
-    travelMode: 'disabled',
-    autoBreakMinutes: 60,
-    paymentCycleStartDate: 1,
-    remindersEnabled: false,
-  },
-  {
-    id: 'j3',
-    userId: 'u1',
-    jobName: 'מוכר/ת',
-    employerName: 'קסטרו',
-    hourlyWage: 35,
-    overtimeStartsAfterHours: 8,
-    overtimePercentage: 125,
-    travelExpenses: 15,
-    travelMode: 'per_shift',
-    autoBreakMinutes: 30,
-    paymentCycleStartDate: 1,
-    remindersEnabled: true,
-  }
-];
+export const initialJobs: Job[] = [];
 
-export const initialShifts: Shift[] = [
-  {
-    id: 's1',
-    jobId: 'j1',
-    status: 'completed',
-    startDateTime: '2023-11-01T09:00:00.000Z',
-    endDateTime: '2023-11-01T17:00:00.000Z',
-    breakMinutes: 30,
-    bonuses: 0,
-  },
-  {
-    id: 's2',
-    jobId: 'j1',
-    status: 'completed',
-    startDateTime: '2023-11-02T09:05:00.000Z',
-    endDateTime: '2023-11-02T17:35:00.000Z',
-    breakMinutes: 30,
-    bonuses: 20,
-  },
-  {
-    id: 's3',
-    jobId: 'j1',
-    status: 'completed',
-    startDateTime: '2023-11-03T08:58:00.000Z',
-    endDateTime: '2023-11-03T18:02:00.000Z', // > 8 hours, has overtime
-    breakMinutes: 30,
-    bonuses: 0,
-    notes: 'משמרת ארוכה',
-  },
-  {
-    id: 's4',
-    jobId: 'j1',
-    status: 'planned',
-    startDateTime: '2023-11-06T09:00:00.000Z',
-    endDateTime: '2023-11-06T17:00:00.000Z',
-    breakMinutes: 30,
-    bonuses: 0,
-  }
-];
+export const initialShifts: Shift[] = [];
 
 // LocalStorage Keys
 const JOBS_KEY = 'paycheck_jobs';
@@ -204,6 +123,18 @@ export function getMonthlySummaryForJob(
   allShifts: Shift[] = getStoredShifts()
 ): MonthlySummary {
   const job = allJobs.find(j => j.id === jobId) || allJobs[0] || initialJobs[0];
+  if (!job) {
+    return {
+      jobId,
+      month: monthStr,
+      totalHours: 0,
+      overtimeHours: 0,
+      totalBonuses: 0,
+      totalPay: 0,
+      shiftCount: 0,
+    };
+  }
+
   const shifts = allShifts.filter(s => s.jobId === jobId && s.status === 'completed');
 
   // Filter shifts belonging to the specified month

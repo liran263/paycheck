@@ -28,18 +28,32 @@ export const Settings: FC = () => {
       <main className="flex-grow px-4 pt-2 space-y-8 max-w-2xl mx-auto w-full">
 
         {/* ── User Profile Section ── */}
-        <section className="bg-white card-component rounded-2xl p-5 border border-gray-100 dark:border-gray-800 flex items-center justify-between shadow-sm">
-          <div className="flex items-center gap-4">
-            <Avatar src={user?.profilePictureUrl || ''} size="lg" className="border border-gray-200 dark:border-gray-700" />
+        <section className="relative overflow-hidden bg-gradient-to-br from-primary to-indigo-600 text-white rounded-3xl p-6 shadow-md border-0 flex items-center justify-between transition-all duration-300 hover:shadow-lg">
+          {/* Decorative background shapes */}
+          <div className="absolute -right-6 -top-6 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none" />
+          <div className="absolute -left-6 -bottom-6 w-32 h-32 bg-indigo-500/20 rounded-full blur-2xl pointer-events-none" />
+          
+          <div className="flex items-center gap-4 z-10">
+            <div className="relative">
+              <Avatar 
+                src={user?.profilePictureUrl || ''} 
+                size="lg" 
+                className="border-2 border-white/50 shadow-inner bg-white/10 dark:bg-white/10" 
+              />
+              <span className="absolute bottom-0 end-0 size-4 bg-emerald-500 border-2 border-white rounded-full" />
+            </div>
             <div className="flex flex-col">
-              <span className="font-extrabold text-lg text-text-light dark:text-text-dark">{user?.name || 'משתמש'}</span>
-              <span className="text-sm text-zinc-400 dark:text-zinc-500">{user?.email}</span>
+              <span className="font-black text-xl tracking-wide leading-tight">{user?.name || (language === 'he' ? 'משתמש' : 'User')}</span>
+              <span className="text-sm text-indigo-100/90 font-medium flex items-center gap-1 mt-0.5">
+                <span className="material-symbols-outlined text-[14px]">mail</span>
+                {user?.email}
+              </span>
             </div>
           </div>
           
           <button
             onClick={() => navigate('/edit-profile')}
-            className="flex items-center justify-center p-2.5 rounded-xl bg-primary/10 hover:bg-primary/15 text-primary active:scale-95 transition-all cursor-pointer border-0"
+            className="z-10 flex items-center justify-center size-11 rounded-full bg-white/15 hover:bg-white/25 border border-white/15 text-white active:scale-95 transition-all cursor-pointer shadow-sm backdrop-blur-sm"
             title={language === 'he' ? 'ערוך פרופיל' : 'Edit Profile'}
           >
             <span className="material-symbols-outlined text-[20px]">edit</span>
