@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { useState, useEffect, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/ui/Header';
@@ -350,10 +351,201 @@ export const AddShift: FC = () => {
                 onChange={(e) => setBonus(e.target.value)}
                 placeholder="₪0"
                 className="bg-transparent border-none p-0 text-right text-xl font-bold text-primary focus:outline-none focus:ring-0 w-full"
+=======
+// @ts-nocheck
+import { FC, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { mockJobs } from '../data/mock-data';
+import { Icon } from '../components/ui/Icon';
+
+export const AddShift: FC = () => {
+  const navigate = useNavigate();
+
+  // Get current date in YYYY-MM-DD format for default input value
+  const getTodayDateString = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  // State values for form fields
+  const [selectedJobId, setSelectedJobId] = useState(mockJobs[0].id);
+  const [date, setDate] = useState(getTodayDateString());
+  const [startTime, setStartTime] = useState('09:00');
+  const [endTime, setEndTime] = useState('18:30');
+  const [breakMinutes, setBreakMinutes] = useState(mockJobs[0].autoBreakMinutes || 60);
+  const [bonuses, setBonuses] = useState('');
+  const [notes, setNotes] = useState('');
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+
+  const selectedJob = mockJobs.find(j => j.id === selectedJobId) || mockJobs[0];
+
+  // Auto update break minutes when selected job changes
+  useEffect(() => {
+    setBreakMinutes(selectedJob.autoBreakMinutes || 0);
+  }, [selectedJobId, selectedJob]);
+
+  // Live Calculations
+  const parseTimeToHours = (timeStr: string): number => {
+    if (!timeStr) return 0;
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours + (isNaN(minutes) ? 0 : minutes) / 60;
+  };
+
+  const startHours = parseTimeToHours(startTime);
+  const endHours = parseTimeToHours(endTime);
+  
+  let totalHoursRaw = endHours - startHours;
+  if (totalHoursRaw < 0) {
+    totalHoursRaw += 24; // Handles overnight shift
+  }
+
+  const breakHours = (Number(breakMinutes) || 0) / 60;
+  const netHours = Math.max(0, totalHoursRaw - breakHours);
+
+  const overtimeThreshold = selectedJob.overtimeStartsAfterHours || 8;
+  const regularHours = Math.min(netHours, overtimeThreshold);
+  const overtimeHours = Math.max(0, netHours - overtimeThreshold);
+
+  const hourlyWage = selectedJob.hourlyWage;
+  // Overtime multiplier: let's use 1.5 if overtime starts, which is standard in the original design and Israeli labor laws.
+  const overtimeMultiplier = 1.5; 
+
+  const regularPay = regularHours * hourlyWage;
+  const overtimePay = overtimeHours * hourlyWage * overtimeMultiplier;
+  const totalPay = regularPay + overtimePay + (Number(bonuses) || 0);
+
+  // Form submit handler
+  const handleSave = () => {
+    setShowSuccessToast(true);
+    setTimeout(() => {
+      navigate('/');
+    }, 1800);
+  };
+
+  return (
+    <div dir="rtl" className="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden bg-light-blue dark:bg-background-dark font-display text-charcoal dark:text-white">
+      
+      {/* Success Toast */}
+      {showSuccessToast && (
+        <div className="fixed top-4 left-4 right-4 z-50 flex items-center justify-center animate-bounce">
+          <div className="bg-success text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 font-bold">
+            <Icon name="check_circle" />
+            <span>המשמרת נשמרה בהצלחה!</span>
+          </div>
+        </div>
+      )}
+
+      {/* Header Sticky */}
+      <div className="flex items-center bg-transparent p-4 pb-2 justify-between sticky top-0 z-10">
+        <button 
+          onClick={() => navigate('/')} 
+          className="text-charcoal dark:text-white flex size-10 shrink-0 items-center justify-center cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors"
+          aria-label="Back to Dashboard"
+        >
+          <span className="material-symbols-outlined text-2xl">arrow_forward</span>
+        </button>
+        <h2 className="text-charcoal dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] flex-1 text-center">הוספת משמרת</h2>
+        <div className="w-10"></div>
+      </div>
+
+      <main className="p-4 flex-1">
+        <div className="flex flex-col gap-4">
+          
+          {/* Job Selection Block */}
+          <div className="flex flex-col items-stretch justify-start rounded-xl bg-card-bg-light dark:bg-card-bg-dark shadow-xs p-4 border border-gray-100 dark:border-gray-800">
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-charcoal dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">בחר עבודה</p>
+              <select
+                value={selectedJobId}
+                onChange={(e) => setSelectedJobId(e.target.value)}
+                className="bg-transparent text-primary dark:text-blue-400 font-bold border-none text-left outline-none focus:ring-0 focus:outline-none cursor-pointer"
+              >
+                {mockJobs.map(job => (
+                  <option key={job.id} value={job.id} className="bg-white dark:bg-card-bg-dark text-charcoal dark:text-white">
+                    {job.jobName} - {job.employerName}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-col gap-1 border-t border-gray-100 dark:border-gray-800 pt-3">
+              <p className="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">
+                שכר שעתי: ₪{hourlyWage.toFixed(2)}
+              </p>
+              <p className="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">
+                שעות נוספות (150%) אחרי {overtimeThreshold} שעות
+              </p>
+            </div>
+          </div>
+
+          {/* Form Fields Grid */}
+          <div className="grid grid-cols-2 gap-4">
+            
+            {/* Date Picker */}
+            <div className="col-span-2 bg-card-bg-light dark:bg-card-bg-dark shadow-xs rounded-xl p-4 flex items-center justify-between border border-gray-100 dark:border-gray-800">
+              <div className="flex flex-col flex-grow">
+                <label className="text-gray-500 dark:text-gray-400 text-base font-medium leading-normal mb-1">תאריך</label>
+                <input 
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="w-full bg-transparent border-0 p-0 text-right text-xl font-bold text-primary dark:text-blue-400 focus:outline-none focus:ring-0 focus:border-0 cursor-pointer"
+                />
+              </div>
+              <span className="material-symbols-outlined text-3xl text-primary dark:text-blue-400 ml-1">calendar_today</span>
+            </div>
+
+            {/* Start Time */}
+            <div className="bg-card-bg-light dark:bg-card-bg-dark shadow-xs rounded-xl p-4 flex flex-col justify-between h-32 border border-gray-100 dark:border-gray-800">
+              <label className="text-gray-500 dark:text-gray-400 text-base font-medium leading-normal">שעת התחלה</label>
+              <input 
+                type="time" 
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                className="w-full bg-transparent border-0 p-0 text-right text-xl font-bold text-primary dark:text-blue-400 focus:outline-none focus:ring-0 focus:border-0 cursor-pointer"
+              />
+            </div>
+
+            {/* End Time */}
+            <div className="bg-card-bg-light dark:bg-card-bg-dark shadow-xs rounded-xl p-4 flex flex-col justify-between h-32 border border-gray-100 dark:border-gray-800">
+              <label className="text-gray-500 dark:text-gray-400 text-base font-medium leading-normal">שעת סיום</label>
+              <input 
+                type="time" 
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                className="w-full bg-transparent border-0 p-0 text-right text-xl font-bold text-primary dark:text-blue-400 focus:outline-none focus:ring-0 focus:border-0 cursor-pointer"
+              />
+            </div>
+
+            {/* Break Time */}
+            <div className="bg-card-bg-light dark:bg-card-bg-dark shadow-xs rounded-xl p-4 flex flex-col justify-between h-32 border border-gray-100 dark:border-gray-800">
+              <label className="text-gray-500 dark:text-gray-400 text-base font-medium leading-normal">זמן הפסקה (דקות)</label>
+              <input 
+                type="number" 
+                placeholder="0"
+                value={breakMinutes}
+                onChange={(e) => setBreakMinutes(Math.max(0, Number(e.target.value)))}
+                className="w-full bg-transparent border-0 p-0 text-right text-xl font-bold text-primary dark:text-blue-400 focus:outline-none focus:ring-0 focus:border-0"
+              />
+            </div>
+
+            {/* Bonuses */}
+            <div className="bg-card-bg-light dark:bg-card-bg-dark shadow-xs rounded-xl p-4 flex flex-col justify-between h-32 border border-gray-100 dark:border-gray-800">
+              <label className="text-gray-500 dark:text-gray-400 text-base font-medium leading-normal">בונוסים</label>
+              <input 
+                type="number" 
+                placeholder="₪0"
+                value={bonuses}
+                onChange={(e) => setBonuses(e.target.value)}
+                className="w-full bg-transparent border-0 p-0 text-right text-xl font-bold text-primary dark:text-blue-400 focus:outline-none focus:ring-0 focus:border-0"
+>>>>>>> Stashed changes
               />
             </div>
 
             {/* Notes */}
+<<<<<<< Updated upstream
             <div className="col-span-2 bg-white card-component shadow-sm rounded-xl p-4 border border-gray-100">
               <p className="text-zinc-400 dark:text-zinc-400 text-sm font-medium">הערות</p>
               <textarea
@@ -927,6 +1119,56 @@ export const AddShift: FC = () => {
           </div>
         </div>
       )}
+=======
+            <div className="col-span-2 bg-card-bg-light dark:bg-card-bg-dark shadow-xs rounded-xl p-4 border border-gray-100 dark:border-gray-800">
+              <label className="text-gray-500 dark:text-gray-400 text-base font-medium leading-normal">הערות</label>
+              <textarea 
+                placeholder="הערות אופציונליות..."
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                className="w-full bg-transparent border-0 p-0 text-right text-base font-normal text-charcoal dark:text-white mt-2 resize-none h-16 focus:outline-none focus:ring-0 focus:border-0"
+              />
+            </div>
+
+          </div>
+
+          {/* Shift Summary Box */}
+          <div className="bg-primary/95 dark:bg-blue-600 p-4 rounded-xl flex flex-col gap-3 text-white shadow-lg">
+            <h3 className="text-lg font-bold">סיכום משמרת</h3>
+            <div className="grid grid-cols-3 gap-2 text-center">
+              
+              <div className="flex flex-col items-center p-2 rounded-lg bg-white/20">
+                <p className="text-blue-100 text-sm font-medium">שעות נטו</p>
+                <p className="text-xl font-bold">{netHours.toFixed(2)}</p>
+              </div>
+
+              <div className="flex flex-col items-center p-2 rounded-lg bg-white/20">
+                <p className="text-blue-100 text-sm font-medium">שעות נוספות</p>
+                <p className="text-xl font-bold">{overtimeHours.toFixed(2)}</p>
+              </div>
+
+              <div className="flex flex-col items-center p-2 rounded-lg bg-white text-primary">
+                <p className="text-sm font-bold">סה"כ למשמרת</p>
+                <p className="text-xl font-extrabold">₪{totalPay.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </main>
+
+      {/* Footer Sticky with Save Button */}
+      <footer className="p-4 pt-2 sticky bottom-0 bg-light-blue dark:bg-background-dark">
+        <button 
+          onClick={handleSave}
+          className="w-full h-16 bg-card-bg-light dark:bg-card-bg-dark text-primary dark:text-blue-300 font-bold text-xl rounded-xl flex items-center justify-center shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary cursor-pointer border border-gray-200 dark:border-gray-700"
+        >
+          שמור משמרת
+        </button>
+      </footer>
+
+>>>>>>> Stashed changes
     </div>
   );
 };

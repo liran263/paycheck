@@ -2,6 +2,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+<<<<<<< Updated upstream
     --color-primary: #007AFF;
     --color-background-light: #f9f9ff;
     --color-background-dark: #0B1120;
@@ -23,6 +24,19 @@
     --radius-card: 24px;
     
     --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+=======
+    --color-primary: #007BFF;
+    --color-light-blue: #E9F5FF;
+    --color-card-bg-light: #FFFFFF;
+    --color-card-bg-dark: #1A1F30;
+    --color-background-light: #F0F2F5;
+    --color-background-dark: #0f1323;
+    --color-success: #28A745;
+    --color-error: #DC3545;
+    --color-charcoal: #333333;
+
+    --font-display: "Manrope", "Noto Sans Hebrew", sans-serif;
+>>>>>>> Stashed changes
 }
 
 .material-symbols-outlined {

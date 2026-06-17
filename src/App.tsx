@@ -3,6 +3,7 @@ import Register from './Register';
 import Login from './Login';
 import { Dashboard } from './pages/Dashboard';
 import { AddShift } from './pages/AddShift';
+<<<<<<< Updated upstream
 import { ShiftsList } from './pages/ShiftsList';
 import { Reports } from './pages/Reports';
 import { Settings } from './pages/Settings';
@@ -13,6 +14,8 @@ import { EditProfile } from './pages/EditProfile';
 import { AppProvider } from './context/AppContext';
 import { DataProvider, useAuth } from './context/DataContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
+=======
+>>>>>>> Stashed changes
 import './App.css';
 
 const AuthGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -53,6 +56,7 @@ const GuestGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 function App() {
   return (
+<<<<<<< Updated upstream
     <AppProvider>
       <DataProvider>
         <ErrorBoundary>
@@ -75,6 +79,16 @@ function App() {
         </ErrorBoundary>
       </DataProvider>
     </AppProvider>
+=======
+    <Router>
+      <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/add-shift" element={<AddShift />} />
+      </Routes>
+    </Router>
+>>>>>>> Stashed changes
   );
 }
 

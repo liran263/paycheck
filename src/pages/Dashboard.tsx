@@ -1,6 +1,13 @@
+<<<<<<< Updated upstream
 import { useState, useEffect, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getMonthlySummaryForJob } from '../data/mock-data';
+=======
+// @ts-nocheck
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { mockUser, mockJobs, mockMonthlySummary } from '../data/mock-data';
+>>>>>>> Stashed changes
 import { Card } from '../components/ui/Card';
 import { Icon } from '../components/ui/Icon';
 import { BottomNav } from '../components/ui/BottomNav';
@@ -13,12 +20,17 @@ import { Badge } from '../components/ui/Badge';
 
 export const Dashboard: FC = () => {
   const navigate = useNavigate();
+<<<<<<< Updated upstream
   const t = useTranslations();
   const { language } = useAppSettings();
   const d = t.dashboard;
   const nav = t.nav;
   
   const { jobs, shifts, updateJob } = useData();
+=======
+  const currentJob = mockJobs[0]; // Currently mocking the default selected job
+  const currentSummary = mockMonthlySummary.find(s => s.jobId === currentJob.id);
+>>>>>>> Stashed changes
 
   // State for current selection (synchronized via localStorage)
   const [selectedJobId, setSelectedJobIdState] = useState<string>(() => {
@@ -234,6 +246,7 @@ export const Dashboard: FC = () => {
           )}
         </div>
 
+<<<<<<< Updated upstream
         {/* Left side (end side): Three dots menu button */}
         {jobs.length > 0 && (
           <button 
@@ -252,6 +265,20 @@ export const Dashboard: FC = () => {
           <div className="flex flex-col items-center justify-center text-center py-16 px-6 bg-white dark:bg-zinc-800 rounded-3xl border border-dashed border-primary/40 shadow-sm gap-6 max-w-md mx-auto mt-8">
             <div className="bg-primary/10 dark:bg-primary/20 rounded-full size-20 flex items-center justify-center">
               <Icon name="work_history" size="4xl" className="text-primary animate-pulse" />
+=======
+      <main className="flex-grow p-4 pb-24 /* Padding for bottom nav */">
+        <div className="grid grid-cols-2 gap-4">
+          
+          {/* Add Shift Tile */}
+          <div 
+            onClick={() => navigate('/add-shift')}
+            className="bg-primary text-white p-4 rounded-2xl aspect-square flex flex-col justify-between cursor-pointer hover:bg-primary/90 transition-colors shadow-sm"
+          >
+            <div>
+              <div className="bg-white/20 rounded-full size-12 flex items-center justify-center">
+                <Icon name="add" size="3xl" />
+              </div>
+>>>>>>> Stashed changes
             </div>
             <div className="space-y-2">
               <h2 className="text-2xl font-bold text-text-light dark:text-text-dark">
